@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: auth-db
+  name: auth-db
+spec:
+  containers:
+  - env:
+    - name: POSTGRES_DB
+      value: auth
+    - name: POSTGRES_PASSWORD
+      value: mainflux
+    - name: POSTGRES_USER
+      value: mainflux
+    image: postgres:10.8-alpine
+    name: mainflux-auth-db
+    resources: {}
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: mainflux-auth-db-volume
+  restartPolicy: OnFailure
+  volumes:
+  - name: mainflux-auth-db-volume
+    persistentVolumeClaim:
+      claimName: mainflux-auth-db-volume
+status: {}

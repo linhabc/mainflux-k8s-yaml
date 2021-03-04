@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: coap-adapter
+  name: coap-adapter
+spec:
+  containers:
+  - env:
+    - name: MF_COAP_ADAPTER_LOG_LEVEL
+      value: debug
+    - name: MF_COAP_ADAPTER_PORT
+      value: "5683"
+    - name: MF_JAEGER_URL
+      value: jaeger:6831
+    - name: MF_NATS_URL
+      value: nats://nats:4222
+    - name: MF_THINGS_AUTH_GRPC_TIMEOUT
+      value: 1s
+    - name: MF_THINGS_AUTH_GRPC_URL
+      value: things:8183
+    image: mainflux/coap:latest
+    name: mainflux-coap
+    ports:
+    - containerPort: 5683
+      protocol: UDP
+    - containerPort: 5683
+    resources: {}
+  restartPolicy: OnFailure
+status: {}

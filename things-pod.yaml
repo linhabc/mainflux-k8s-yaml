@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: things
+  name: things
+spec:
+  containers:
+  - env:
+    - name: MF_AUTH_GRPC_TIMEOUT
+      value: 1s
+    - name: MF_AUTH_GRPC_URL
+      value: auth:8181
+    - name: MF_JAEGER_URL
+      value: jaeger:6831
+    - name: MF_THINGS_AUTH_GRPC_PORT
+      value: "8183"
+    - name: MF_THINGS_AUTH_HTTP_PORT
+      value: "8989"
+    - name: MF_THINGS_CACHE_URL
+      value: auth-redis:6379
+    - name: MF_THINGS_DB
+      value: things
+    - name: MF_THINGS_DB_HOST
+      value: things-db
+    - name: MF_THINGS_DB_PASS
+      value: mainflux
+    - name: MF_THINGS_DB_PORT
+      value: "5432"
+    - name: MF_THINGS_DB_USER
+      value: mainflux
+    - name: MF_THINGS_ES_URL
+      value: es-redis:6379
+    - name: MF_THINGS_HTTP_PORT
+      value: "8182"
+    - name: MF_THINGS_LOG_LEVEL
+      value: debug
+    image: mainflux/things:latest
+    name: mainflux-things
+    ports:
+    - containerPort: 8182
+    - containerPort: 8989
+    - containerPort: 8183
+    resources: {}
+  restartPolicy: OnFailure
+status: {}

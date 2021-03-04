@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: users
+  name: users
+spec:
+  containers:
+  - env:
+    - name: MF_AUTH_GRPC_TIMEOUT
+      value: 1s
+    - name: MF_AUTH_GRPC_URL
+      value: auth:8181
+    - name: MF_EMAIL_FROM_ADDRESS
+      value: from@example.com
+    - name: MF_EMAIL_FROM_NAME
+      value: Example
+    - name: MF_EMAIL_HOST
+      value: smtp.mailtrap.io
+    - name: MF_EMAIL_PASSWORD
+      value: 2b0d302e775b1e
+    - name: MF_EMAIL_PORT
+      value: "2525"
+    - name: MF_EMAIL_TEMPLATE
+      value: email.tmpl
+    - name: MF_EMAIL_USERNAME
+      value: 18bf7f70705139
+    - name: MF_JAEGER_URL
+      value: jaeger:6831
+    - name: MF_TOKEN_RESET_ENDPOINT
+      value: /reset-request
+    - name: MF_USERS_ADMIN_EMAIL
+      value: admin@example.com
+    - name: MF_USERS_ADMIN_PASSWORD
+      value: "12345678"
+    - name: MF_USERS_DB
+      value: users
+    - name: MF_USERS_DB_HOST
+      value: users-db
+    - name: MF_USERS_DB_PASS
+      value: mainflux
+    - name: MF_USERS_DB_PORT
+      value: "5432"
+    - name: MF_USERS_DB_USER
+      value: mainflux
+    - name: MF_USERS_HTTP_PORT
+      value: "8180"
+    - name: MF_USERS_LOG_LEVEL
+      value: debug
+    image: mainflux/users:latest
+    name: mainflux-users
+    ports:
+    - containerPort: 8180
+    resources: {}
+  restartPolicy: OnFailure
+status: {}
