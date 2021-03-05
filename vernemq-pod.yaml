@@ -3,25 +3,25 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.network/mainflux-base-net: true
     io.kompose.service: vernemq
   name: vernemq
 spec:
   containers:
-  - env:
-    - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
-      value: on
-    - name: DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL
-      value: error
-    image: mainflux/vernemq:latest
-    name: mainflux-vernemq
-    resources: {}
-    volumeMounts:
-    - mountPath: /var/lib/vernemq
-      name: mainflux-mqtt-broker-volume
+    - env:
+        - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
+          value: on
+        - name: DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL
+          value: error
+      image: mainflux/vernemq:latest
+      name: mainflux-vernemq
+      resources: {}
+      volumeMounts:
+        - mountPath: /var/lib/vernemq
+          name: mainflux-mqtt-broker-volume
   restartPolicy: OnFailure
   volumes:
-  - name: mainflux-mqtt-broker-volume
-    persistentVolumeClaim:
-      claimName: mainflux-mqtt-broker-volume
+    - name: mainflux-mqtt-broker-volume
+      persistentVolumeClaim:
+        claimName: mainflux-mqtt-broker-volume
 status: {}
