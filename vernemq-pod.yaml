@@ -10,9 +10,9 @@ spec:
   containers:
     - env:
         - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
-          value: on
+          value: "on"
         - name: DOCKER_VERNEMQ_LOG__CONSOLE__LEVEL
-          value: error
+          value: "error"
       image: mainflux/vernemq:latest
       name: mainflux-vernemq
       resources: {}
