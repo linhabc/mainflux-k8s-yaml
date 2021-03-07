@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: C:\Windows\system32\kompose.exe convert
     kompose.version: 1.21.0 (992df58d8)
-  creationTimestamp: null
   labels:
     io.kompose.service: nginx
   name: nginx
@@ -19,15 +18,12 @@ spec:
       annotations:
         kompose.cmd: C:\Windows\system32\kompose.exe convert
         kompose.version: 1.21.0 (992df58d8)
-      creationTimestamp: null
       labels:
         io.kompose.network/mainflux-base-net: "true"
         io.kompose.service: nginx
     spec:
       containers:
-      - args:
-        - /entrypoint.sh
-        env:
+      - env:
         - name: MF_AUTH_DB
           valueFrom:
             configMapKeyRef:
@@ -1214,5 +1210,9 @@ spec:
         resources: {}
       restartPolicy: Always
       serviceAccountName: ""
+      initContainers:
+      - name: init-nginx
+        image: nginx:1.16.0-alpine
+        command: ['/entrypoint.sh']
       volumes: null
 status: {}
