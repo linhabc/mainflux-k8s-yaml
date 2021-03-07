@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: opcua-redis
+  name: opcua-redis
+spec:
+  containers:
+    - image: redis:5.0-alpine
+      name: mainflux-opcua-redis
+      resources: {}
+      volumeMounts:
+        - mountPath: /data
+          name: mainflux-opcua-redis-volume
+  restartPolicy: OnFailure
+  volumes:
+    - name: mainflux-opcua-redis-volume
+      persistentVolumeClaim:
+        claimName: mainflux-opcua-redis-volume
+status: {}

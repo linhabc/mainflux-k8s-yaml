@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: bootstrap-db
+  name: bootstrap-db
+spec:
+  containers:
+    - env:
+        - name: POSTGRES_DB
+          value: bootstrap
+        - name: POSTGRES_PASSWORD
+          value: mainflux
+        - name: POSTGRES_USER
+          value: mainflux
+      image: postgres:13.1-alpine
+      name: mainflux-bootstrap-db
+      resources: {}
+      volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: mainflux-bootstrap-db-volume
+  restartPolicy: OnFailure
+  volumes:
+    - name: mainflux-bootstrap-db-volume
+      persistentVolumeClaim:
+        claimName: mainflux-bootstrap-db-volume
+status: {}

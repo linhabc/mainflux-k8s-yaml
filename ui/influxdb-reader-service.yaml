@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: influxdb-reader
+  name: influxdb-reader
+spec:
+  ports:
+    - name: "8905"
+      port: 8905
+      targetPort: 8905
+  selector:
+    io.kompose.service: influxdb-reader
+status:
+  loadBalancer: {}

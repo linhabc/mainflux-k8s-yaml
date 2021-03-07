@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: influxdb-reader
+  name: influxdb-reader
+spec:
+  containers:
+    - env:
+        - name: MF_INFLUX_READER_DB
+          value: mainflux
+        - name: MF_INFLUX_READER_DB_HOST
+          value: mainflux-influxdb
+        - name: MF_INFLUX_READER_DB_PASS
+          value: mainflux
+        - name: MF_INFLUX_READER_DB_PORT
+          value: "8086"
+        - name: MF_INFLUX_READER_DB_USER
+          value: mainflux
+        - name: MF_INFLUX_READER_LOG_LEVEL
+          value: debug
+        - name: MF_INFLUX_READER_PORT
+          value: "8905"
+        - name: MF_INFLUX_READER_SERVER_CERT
+        - name: MF_INFLUX_READER_SERVER_KEY
+        - name: MF_JAEGER_URL
+          value: jaeger:6831
+        - name: MF_THINGS_AUTH_GRPC_TIMEOUT
+          value: 1s
+        - name: MF_THINGS_AUTH_GRPC_URL
+          value: things:8183
+      image: mainflux/influxdb-reader:latest
+      name: mainflux-influxdb-reader
+      ports:
+        - containerPort: 8905
+      resources: {}
+      volumeMounts:
+        - mountPath: /etc/ssl/certs
+          name: influxdb-reader-claim0
+  restartPolicy: OnFailure
+  volumes:
+    - name: influxdb-reader-claim0
+      persistentVolumeClaim:
+        claimName: influxdb-reader-claim0
+status: {}

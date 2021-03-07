@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: provision
+  name: provision
+spec:
+  containers:
+    - env:
+        - name: MF_PROVISION_API_KEY
+        - name: MF_PROVISION_BS_AUTO_WHITELIST
+          value: "true"
+        - name: MF_PROVISION_BS_CONFIG_PROVISIONING
+          value: "true"
+        - name: MF_PROVISION_BS_CONTENT
+        - name: MF_PROVISION_BS_SVC_URL
+          value: http://bootstrap:8202/things
+        - name: MF_PROVISION_BS_SVC_WHITELIST_URL
+          value: http://bootstrap:8202/things/state
+        - name: MF_PROVISION_CERTS_HOURS_VALID
+          value: 2400h
+        - name: MF_PROVISION_CERTS_RSA_BITS
+          value: "4096"
+        - name: MF_PROVISION_CERTS_SVC_URL
+          value: http://certs:8204
+        - name: MF_PROVISION_CONFIG_FILE
+          value: /configs/config.toml
+        - name: MF_PROVISION_ENV_CLIENTS_TLS
+          value: "false"
+        - name: MF_PROVISION_HTTP_PORT
+          value: "8190"
+        - name: MF_PROVISION_LOG_LEVEL
+          value: debug
+        - name: MF_PROVISION_MQTT_URL
+          value: tcp://localhost
+        - name: MF_PROVISION_PASS
+        - name: MF_PROVISION_SERVER_CERT
+        - name: MF_PROVISION_SERVER_KEY
+        - name: MF_PROVISION_THINGS_LOCATION
+          value: http://things:8182
+        - name: MF_PROVISION_USER
+        - name: MF_PROVISION_USERS_LOCATION
+          value: http://localhost:8180
+        - name: MF_PROVISION_X509_PROVISIONING
+          value: "false"
+      image: mainflux/provision:latest
+      name: mainflux-provision
+      ports:
+        - containerPort: 8190
+      resources: {}
+      volumeMounts:
+        - mountPath: /configs
+          name: provision-claim0
+        - mountPath: /etc/ssl/certs/ca.key
+          name: provision-claim1
+        - mountPath: /etc/ssl/certs/ca.crt
+          name: provision-claim2
+  restartPolicy: OnFailure
+  volumes:
+    - name: provision-claim0
+      persistentVolumeClaim:
+        claimName: provision-claim0
+    - name: provision-claim1
+      persistentVolumeClaim:
+        claimName: provision-claim1
+    - name: provision-claim2
+      persistentVolumeClaim:
+        claimName: provision-claim2
+status: {}

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: twins
+  name: twins
+spec:
+  containers:
+    - env:
+        - name: MF_AUTH_GRPC_TIMEOUT
+          value: 1s
+        - name: MF_AUTH_GRPC_URL
+          value: auth:8181
+        - name: MF_NATS_URL
+          value: nats://nats:4222
+        - name: MF_TWINS_CACHE_DB
+          value: "0"
+        - name: MF_TWINS_CACHE_PASS
+        - name: MF_TWINS_CACHE_URL
+          value: es-redis:6379
+        - name: MF_TWINS_CHANNEL_ID
+        - name: MF_TWINS_DB
+          value: mainflux-twins
+        - name: MF_TWINS_DB_HOST
+          value: twins-db
+        - name: MF_TWINS_DB_PORT
+          value: "27018"
+        - name: MF_TWINS_HTTP_PORT
+          value: "9021"
+        - name: MF_TWINS_LOG_LEVEL
+          value: debug
+      image: mainflux/twins:latest
+      name: mainflux-twins
+      ports:
+        - containerPort: 9021
+      resources: {}
+  restartPolicy: OnFailure
+status: {}

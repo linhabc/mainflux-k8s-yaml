@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: mainflux-base-net
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/mainflux-base-net: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/mainflux-base-net: "true"

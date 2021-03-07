@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: lora-adapter
+  name: lora-adapter
+spec:
+  containers:
+    - env:
+        - name: MF_LORA_ADAPTER_HTTP_PORT
+          value: "8187"
+        - name: MF_LORA_ADAPTER_LOG_LEVEL
+          value: debug
+        - name: MF_LORA_ADAPTER_MESSAGES_URL
+          value: tcp://lora.mqtt.mainflux.io:1883
+        - name: MF_LORA_ADAPTER_ROUTE_MAP_URL
+          value: lora-redis:6379
+        - name: MF_NATS_URL
+          value: nats://nats:4222
+        - name: MF_THINGS_ES_URL
+          value: es-redis:6379
+      image: mainflux/lora:latest
+      name: mainflux-lora
+      ports:
+        - containerPort: 8187
+      resources: {}
+  restartPolicy: OnFailure
+status: {}

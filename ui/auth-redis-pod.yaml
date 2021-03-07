@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/mainflux-base-net: "true"
+    io.kompose.service: auth-redis
+  name: auth-redis
+spec:
+  containers:
+    - image: redis:5.0-alpine
+      name: mainflux-auth-redis
+      resources: {}
+      volumeMounts:
+        - mountPath: /data
+          name: mainflux-auth-redis-volume
+  restartPolicy: OnFailure
+  volumes:
+    - name: mainflux-auth-redis-volume
+      persistentVolumeClaim:
+        claimName: mainflux-auth-redis-volume
+status: {}
