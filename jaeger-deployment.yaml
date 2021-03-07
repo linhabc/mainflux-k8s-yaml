@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: C:\Windows\system32\kompose.exe convert
     kompose.version: 1.21.0 (992df58d8)
-  creationTimestamp: null
   labels:
     io.kompose.service: jaeger
   name: jaeger
@@ -19,14 +18,13 @@ spec:
       annotations:
         kompose.cmd: C:\Windows\system32\kompose.exe convert
         kompose.version: 1.21.0 (992df58d8)
-      creationTimestamp: null
       labels:
         io.kompose.network/mainflux-base-net: "true"
         io.kompose.service: jaeger
     spec:
       containers:
       - image: jaegertracing/all-in-one:1.13
-        imagePullPolicy: ""
+        imagePullPolicy: "IfNotPresent"
         name: mainflux-jaeger
         ports:
         - containerPort: 6831
