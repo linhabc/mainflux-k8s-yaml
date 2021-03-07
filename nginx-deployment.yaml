@@ -1210,9 +1210,9 @@ spec:
         resources: {}
       restartPolicy: Always
       serviceAccountName: ""
-      initContainers:
-      - name: init-nginx
-        image: nginx:1.16.0-alpine
-        command: ['/entrypoint.sh']
+      # initContainers:
+      # - name: init-nginx
+      #   image: nginx:1.16.0-alpine
+      #   command: ['/entrypoint.sh']
       volumes: null
 status: {}
