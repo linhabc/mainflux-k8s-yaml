@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: postgres-statefulset
 spec:
-  serviceName: "postgres"
+  serviceName: postgres
   replicas: 3
   selector:
     matchLabels:
@@ -31,7 +31,6 @@ spec:
       name: postgredb
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
       resources:
         requests:
           storage: 1Gi
