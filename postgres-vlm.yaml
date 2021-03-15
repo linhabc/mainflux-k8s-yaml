@@ -1,27 +1,27 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-pv-volume
+  name: postgres-ha-pv-volume
   labels:
     type: local
     app: postgres
 spec:
-  storageClassName: manual
+  storageClassName: pg-ha
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/bigdata/data"
+    path: "/bigdata-2/data"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: postgres-ha-pv-claim
   labels:
     app: postgres
 spec:
-  storageClassName: manual
+  storageClassName: pg-ha
   accessModes:
     - ReadWriteMany
   resources:
