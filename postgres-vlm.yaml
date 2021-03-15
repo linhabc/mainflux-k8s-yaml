@@ -1,12 +1,12 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-ha-pv-volume
+  name: postgres-pv-volume
   labels:
     type: local
     app: postgres
 spec:
-  storageClassName: pg-ha
+  storageClassName: pg
   capacity:
     storage: 1Gi
   accessModes:
@@ -17,11 +17,11 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-ha-pv-claim
+  name: postgres-pv-claim
   labels:
     app: postgres
 spec:
-  storageClassName: pg-ha
+  storageClassName: pg
   accessModes:
     - ReadWriteMany
   resources:
