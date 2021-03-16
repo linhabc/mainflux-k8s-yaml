@@ -1,29 +1,54 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-ha-pv-volume
+  name: postgres-ha-pv-volume-bitnami-0
   labels:
     type: local
-    app: postgres-ha
 spec:
-  storageClassName: pg-ha
+  storageClassName: local-storage
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/bigdata/data"
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k8s-node01
+  local:
+    path: "/mnt/disk/vol1"
 ---
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-ha-pv-claim
+  name: postgres-ha-pv-volume-bitnami-1
   labels:
-    app: postgres-ha
+    type: local
 spec:
-  storageClassName: pg-ha
+  storageClassName: local-storage
+  capacity:
+    storage: 1Gi
   accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - k8s-node02
+  local:
+    path: "/mnt/disk/vol1"
