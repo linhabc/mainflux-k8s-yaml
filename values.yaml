@@ -15,6 +15,9 @@
 postgresql:
   replicaCount: 2
 
+pgpool:
+  replicaCount: 2
+
 persistence:
   storageClass: local-storage
   accessMode: ReadWriteOnce

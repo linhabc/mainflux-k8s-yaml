@@ -31,3 +31,6 @@ To connect to your database from outside the cluster execute the following comma
     export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
     export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services postgres-ha-postgresql-ha-pgpool
     PGPASSWORD="$POSTGRES_PASSWORD" psql -h $NODE_IP -p $NODE_PORT -U postgres -d postgres
+
+
+postgres-ha-postgresql-ha-postgresql-0
