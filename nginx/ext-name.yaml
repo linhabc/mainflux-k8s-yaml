@@ -4,11 +4,7 @@ metadata:
   name: nginx-svc-ext
   namespace: default
 spec:
-  type: ExternalName
-  externalName: my.nginx.com
-  ports:
-    - port: 80
-      targetPort: 80
+  type: LoadBalancer
   selector:
     app: nginx
   
