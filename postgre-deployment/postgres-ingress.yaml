@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postgres-ingress
+spec:
+  defaultBackend:
+    service:
+      name: postgre-ha-postgresql-ha-pgpool
+      port:
+        number: 80
