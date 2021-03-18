@@ -8,3 +8,4 @@ spec:
   externalName: my.nginx.com
   ports:
     - port: 80
+      targetPort: 80
