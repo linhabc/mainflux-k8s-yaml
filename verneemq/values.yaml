@@ -1,0 +1,15 @@
+replicaCount: 2
+
+persistentVolume:
+    size: 1Gi
+
+service:
+    type: NodePort
+
+additionalEnv:
+    - name: DOCKER_VERNEMQ_ACCEPT_EULA
+      value: "yes"
+
+service:
+    mqtt:
+        nodePort: 30000
