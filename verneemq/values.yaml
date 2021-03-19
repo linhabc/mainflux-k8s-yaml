@@ -14,3 +14,6 @@ additionalEnv:
 persistentVolume:
     enabled: true
     size: 1Gi
+    storageClass: local-storage
+    accessModes:
+        - ReadWriteOnce
