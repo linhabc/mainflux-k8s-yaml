@@ -5,15 +5,21 @@ service:
     mqtt:
         enabled: true
         port: 1883
-        nodePort: 30030
+        nodePort: 30031
 
 additionalEnv:
     - name: DOCKER_VERNEMQ_ACCEPT_EULA
       value: "yes"
+    - name: DOCKER_VERNEMQ_ALLOW_ANONYMOUS
+      value: "on"
 
-persistentVolume:
-    enabled: true
-    size: 1Gi
-    storageClass: local-storage
-    accessModes:
-        - ReadWriteOnce
+# persistentVolume:
+    # enabled: true
+    # size: 1Gi
+    # storageClass: local-storage
+    # accessModes:
+    #     - ReadWriteOnce
+
+    # docker run -p 1883:1883 -e "DOCKER_VERNEMQ_ACCEPT_EULA=yes" -e "DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on" --name vernemq1 -d vernemq/vernemq
+
+    # kubectl exec --stdin --tty vernemq-0 -- /bin/bash
