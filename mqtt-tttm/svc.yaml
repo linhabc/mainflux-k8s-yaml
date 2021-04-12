@@ -8,8 +8,8 @@ spec:
   type: NodePort
   ports:
     - port: 1886
-      name: mqttPort
+      name: mqtt-port
     - port: 8080
-      name: htttpPort
+      name: htttp-port
   selector:
     app: mqtt-tttm
