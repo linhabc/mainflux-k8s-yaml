@@ -13,13 +13,13 @@
 #   repmgrDatabase: repmgr
 
 postgresql:
-  replicaCount: 2
+  replicaCount: 1
 
 pgpool:
-  replicaCount: 2
+  replicaCount: 1
 
 persistence:
-  # storageClass: nfsstorageclass
+  storageClass: nfsstorageclass
   existingClaim: nfs-pv-claim
   # accessMode: ReadWriteOnce
   # size: 1Gi
