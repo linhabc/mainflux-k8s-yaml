@@ -1,0 +1,37 @@
+# global:
+#   postgresql:
+#     # username: admin
+#     # password: root
+#     # database: test
+#     repmgrUsername: repmgr
+#     repmgrPassword:
+#     repmgrDatabase: repmgr
+
+# postgresql:
+#   repmgrUsername: repmgr
+#   repmgrPassword:
+#   repmgrDatabase: repmgr
+
+postgresql:
+  replicaCount: 2
+
+pgpool:
+  replicaCount: 2
+
+persistence:
+  # storageClass: nfsstorageclass
+  existingClaim: nfs-pv-claim
+  # accessMode: ReadWriteOnce
+  # size: 1Gi
+  # selector: 
+  #   matchLabels:
+  #     volumn-type: nfs
+  # mountPath: /bitnami/postgresql
+  # selector: postgres-ha-pv-volume-bitnami
+  # enabled: false
+
+service:
+  type: NodePort
+
+volumePermissions:
+  enabled: true

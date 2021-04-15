@@ -1,0 +1,51 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: nfsstorageclass
+# provisioner: example.com/nfs
+# parameters:
+#   archiveOnDelete: "false"
+# ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv1
+  labels:
+    volumn-type: nfs
+spec:
+  storageClassName: nfsstorageclass
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: "/nfs-share/pg-1"
+    server: "10.38.23.111"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv2
+  labels:
+    volumn-type: nfs
+spec:
+  storageClassName: nfsstorageclass
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: "/nfs-share/pg-2"
+    server: "10.38.23.111"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pv-claim
+spec:
+  storageClassName: nfsstorageclass
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
