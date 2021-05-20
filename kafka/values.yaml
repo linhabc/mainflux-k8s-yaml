@@ -1,0 +1,19 @@
+replicaCount: 2
+args: ["ALLOW_ANONYMOUS_LOGIN=yes", "ALLOW_PLAINTEXT_LISTENER=yes"]
+# advertisedListeners: []
+externalAccess:
+  enabled: true
+  service:
+    type: NodePort
+  autoDiscovery:
+    enabled: true
+
+serviceAccount:
+  create: true
+
+rbac:
+  create: true
+
+zookeeper:
+  auth:
+    enabled: false
